@@ -1,4 +1,10 @@
 # DEVLAND.JS COMMANDS FRAMEWORK
+
+```bash
+npm install devland.js-commands
+npm install devland.js@latest
+```
+
 **Index file :**
 ```js
 const Discord = require('devland.js')
