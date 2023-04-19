@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "devland.js": "^1.1.96",
+    "devland.js": "^1.2.1",
     "mxtorie-utils": "^1.0.1"
   },
   "name": "devland.js-commands",
