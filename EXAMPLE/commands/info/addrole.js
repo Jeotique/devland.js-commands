@@ -5,6 +5,8 @@ module.exports = new Command({
     aliases: "add_role",
     description: "Add a role to a user",
     startTyping: true,
+    permission: "MANAGE_ROLES",
+    noPermissionReply: "You need the permission `MANAGE_ROLES`",
     arguments: [{
         name: "member",
         type: "member",
