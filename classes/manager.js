@@ -8,6 +8,7 @@ module.exports = class Manager {
      * @property {Discord.Client} client
      * @property {string} defaultPrefix
      * @property {string} path
+     * @property {boolean} startTyping
     */
     /**
      * 
@@ -37,13 +38,15 @@ module.exports = class Manager {
         this.options.client.on('guildRemoved', guild => { delete this.prefix[guild.id] })
         this.options.client.on('message', async message => {
             const prefix = this.prefix[message.guildId]
-            if (!prefix) return 
-            if (!message.content.startsWith(prefix)) return 
+            if (!prefix) return
+            if (!message.content.startsWith(prefix)) return
             const args = message.content.slice(prefix.length).trim().split(/ +/g)
             let cmd = this.commands.get(args[0]?.toLowerCase()) || this.aliases.get(args[0]?.toLowerCase())
-            if (!cmd) return 
+            if (!cmd) return
             args.shift()
             if (!cmd.run) return console.warn(`The command ${cmd.name} doesn't have a valid run function`)
+            if (typeof cmd.options.startTyping === "undefined" && this.options.startTyping) await message.channel.startTyping().catch(e => { })
+            else if (cmd.options.startTyping) await message.channel.startTyping().catch(e => { })
             let canAccess = await this.checkPermissions(message)
             if (!canAccess) return cmd.options.noPermissionReply ? message.reply(cmd.options.noPermissionReply).catch(e => { }) : undefined
             let finalArgs = [this.options.client, message]

@@ -18,6 +18,7 @@ module.exports = class Command {
      * @property {string} name The name of the command
      * @property {Array<String>} aliases The aliases of the command (other names)
      * @property {string} description The description of the command
+     * @property {boolean} startTyping The bot will be marked like typing in the channel, this will overwrite the manager propertie startTyping
      * @property {Array<Command_Options_Arguments>} arguments The command arguments
      * @property {string} permission The permission needed to execute the command
      * @property {string} noPermissionReply What the bot answer to a user without the required permission
@@ -28,7 +29,8 @@ module.exports = class Command {
      * @param {Discord.Client} client
      * @param {Command_Options} options
      */
-    constructor(options) {
+    constructor(options = {}) {
+        if (typeof options !== "object") options = {}
         this.options = options
         /**
          * @private
@@ -47,7 +49,7 @@ module.exports = class Command {
             else testArgs.push(arg.name)
         })
     }
-    init(client){
+    init(client) {
         /**
          * @private
          */
