@@ -4,6 +4,7 @@ module.exports = new Command({
     name: "addrole",
     aliases: "add_role",
     description: "Add a role to a user",
+    startTyping: true,
     arguments: [{
         name: "member",
         type: "member",

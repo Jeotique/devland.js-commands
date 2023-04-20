@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "devland.js": "^1.2.1",
+    "devland.js": "^1.2.26",
     "devland.js-commands": "^1.0.0"
   }
 }
