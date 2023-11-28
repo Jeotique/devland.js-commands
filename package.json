@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "devland.js": "^1.2.26",
+    "devland.js": "^1.3.6",
     "mxtorie-utils": "^1.0.1"
   },
   "name": "devland.js-commands",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A framework to create easly message commands with devland.js",
   "main": "index.js",
   "devDependencies": {},

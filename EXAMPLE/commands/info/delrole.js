@@ -5,7 +5,7 @@ module.exports = new Command({
     aliases: "del_role",
     description: "Remove a role to a user",
     startTyping: true,
-    permission: "MANAGE_ROLES",
+    permissions: ["MANAGE_ROLES"],
     noPermissionReply: "You need the permission `MANAGE_ROLES`",
     arguments: [{
         name: "member",

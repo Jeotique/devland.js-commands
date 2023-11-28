@@ -4,7 +4,7 @@ module.exports = class Command {
     /**
      * @typedef {object} Command_Options_Arguments
      * @property {string} name The name of the variable
-     * @property {'normal'|'role'|'channel'|'member'|'user'} [type="normal"] The type of the variable (normal = string | undefined = normal)
+     * @property {'normal'|'role'|'channel'|'member'|'user'|'string'|'boolean'|'number'} [type="normal"] The type of the variable (normal = string | undefined = normal)
      * @property {Array} somethingIn If the type is 'normal' or 'string' you can use this to create invalid response if the array doesn't include the argument
      * @property {boolean} [long=false] The variable is a long type of not, work only with 'normal' type
      * @property {boolean} [required=false] The variable is required or not
@@ -12,6 +12,10 @@ module.exports = class Command {
      * @property {string} [invalidResponse="The argument is invalid"] What the bot answer if the variable type if invalid
      * @property {boolean} [missingReply=false] The bot mention the user or not when he answer for a missing argument
      * @property {string} [missingResponse="The argument is missing"] What the bot answer if the variable if missing, work only if required is enabled
+     * @property {string} [boolean_true="on"] What mean true when type is boolean
+     * @property {string} [boolean_false="off"] What mean false when type is boolean
+     * @property {number} [min_number=0] The minimum when type is number
+     * @property {number} [max_number=Infinity] The maximum when type is number
      */
     /**
      * @typedef {object} Command_Options
@@ -20,13 +24,16 @@ module.exports = class Command {
      * @property {string} description The description of the command
      * @property {boolean} startTyping The bot will be marked like typing in the channel, this will overwrite the manager propertie startTyping
      * @property {Array<Command_Options_Arguments>} arguments The command arguments
-     * @property {string} permission The permission needed to execute the command
+     * @property {Array<string>|string} permissions The permissions needed to execute the command
      * @property {string} noPermissionReply What the bot answer to a user without the required permission
+     * @property {number} cooldown The cooldown of the command
+     * @property {boolean} cooldownIsGeneral The cooldown is for everyone
+     * @property {string} cooldownMessage The cooldown message
      * @property {Function} run The function that will be executed
+     * @property {Discord.Client?} client The devland client used with the manager
      */
     /**
      *
-     * @param {Discord.Client} client
      * @param {Command_Options} options
      */
     constructor(options = {}) {
@@ -36,6 +43,10 @@ module.exports = class Command {
          * @private
          */
         this.client = null
+        /**
+         * @private
+         */
+        this.cooldownCache = new Discord.Store()
         this.run = options.run
         if (!this.options.name) throw new Error("Command name must be defined")
         if (!this.options.aliases) this.options.aliases = []
